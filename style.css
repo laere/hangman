@@ -1,0 +1,14 @@
+html {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+div {
+  margin: 20px 0;
+}
+
+.letters {
+  visibility: hidden;
+  margin-right: 20px;
+}
