@@ -17,6 +17,7 @@
   const guessButton = document.getElementById("guess");
   const playAgainButton = document.getElementById("play-again");
   const wordContainer = document.getElementById("word");
+  const hangmanContainer = document.getElementById("hangman-container");
 
   function randomWord() {
     // Checks if container already has a word
@@ -63,25 +64,31 @@
     const val = getVal();
 
     // If no word exists exit function.
-    if (wordContainer.children.length === 0) return;
+    if (!wordContainer.children.length) return;
 
     // If input is empty or a number exit function
     if (val === "" || val.length > 1 || !isNaN(val)) {
-      console.log("Please pick one letter!");
-      return;
+      if (hangmanContainer.children.length === 4) {
+        displayMessage("Please pick one letter!");
+        return;
+      }
     }
+
+    clearMessages();
 
     // If the value has already been guessed exit function
     if (checkGuessedVals(guessed, val)) {
       // because the user guessed wrong, subtract from guesses
       guesses -= 1;
       console.log(guesses);
-      console.log("Pick a different letter!");
+      displayMessage("Pick a different letter!");
       // if (guesses = 0) {
       //   // run some func
       // }
       return;
     }
+
+    clearMessages();
 
     console.log("guess count", guesses);
     // If the value entered is in the word
@@ -112,7 +119,6 @@
 
   function displayGuessedLetters() {
     const guessedLetters = document.getElementById("guessed-letters");
-
     guessedLetters.textContent = guessed;
   }
 
@@ -123,7 +129,21 @@
     children.forEach(child => wordContainer.remove(child));
   }
 
-  function displayMessage(msg) {}
+  function displayMessage(msg) {
+    const message = document.createElement("div");
+
+    message.classList.add("message");
+    message.style.color = "red";
+    message.style.fontSize = "32px";
+    message.textContent = msg;
+
+    hangmanContainer.appendChild(message);
+  }
+
+  function clearMessages() {
+    const messages = document.querySelectorAll(".message");
+    messages.forEach(msg => hangmanContainer.removeChild(msg));
+  }
 
   playButton.addEventListener("click", randomWord);
   guessButton.addEventListener("click", guessLetter);
