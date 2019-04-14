@@ -4,11 +4,25 @@ html {
   box-sizing: border-box;
 }
 
+body {
+  margin: 0;
+}
+
 div {
   margin: 20px 0;
+}
+
+#container {
+  display: none;
 }
 
 .letters {
   visibility: hidden;
   margin-right: 20px;
+}
+
+#modal {
+  width: 100%;
+  height: 98vh;
+  background-color: red;
 }

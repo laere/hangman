@@ -10,7 +10,7 @@
 (function() {
   // DATA
   const guessed = [];
-  const guesses = 6;
+  let guesses = 6;
 
   // DOM ELEMENTS
   const playButton = document.getElementById("play");
@@ -20,12 +20,20 @@
 
   function randomWord() {
     // Checks if container already has a word
-    // If length of children > 0 it must mean a word exists in
-    // elements inner html, thus we return to prevent appending
-    // the word a 2nd time.
-    if (wordContainer.children.length !== 0) return;
+    if (wordContainer.children.length) return;
+
+    hideModal();
+
     const word = "horror".split("");
     word.forEach(letter => createSpans(letter));
+    return word;
+  }
+
+  function hideModal() {
+    const container = document.getElementById("container");
+    const modal = document.getElementById("modal");
+    modal.style.display = "none";
+    container.style.display = "block";
   }
 
   function createSpans(letter) {
@@ -55,10 +63,17 @@
 
     // If the value has already been guessed exit function
     if (checkGuessedVals(guessed, val)) {
+      // because the user guessed wrong, subtract from guesses
+      guesses -= 1;
+      console.log(guesses);
       console.log("Pick a different letter!");
+      // if (guesses = 0) {
+      //   // run some func
+      // }
       return;
     }
 
+    console.log("guess count", guesses);
     // If the value entered is in the word
     // show the letter
     letters.forEach(letter => checkLetter(letter, val));
@@ -97,6 +112,8 @@
     // remove all children from parent
     children.forEach(child => wordContainer.remove(child));
   }
+
+  function displayMessage(msg) {}
 
   playButton.addEventListener("click", randomWord);
   guessButton.addEventListener("click", guessLetter);
