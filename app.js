@@ -27,6 +27,7 @@
 
     const word = "horror".split("");
     word.forEach(letter => createLetters(letter));
+    console.dir(wordContainer);
     return word;
   }
 
@@ -67,30 +68,26 @@
     if (!wordContainer.children.length) return;
 
     // If input is empty or a number exit function
-    if (val === "" || val.length > 1 || !isNaN(val)) {
-      if (hangmanContainer.children.length === 4) {
-        displayMessage("Please pick one letter!");
-        return;
-      }
-    }
+    if (val === "" || val.length > 1 || !isNaN(val)) return;
 
-    clearMessages();
+    gameOver();
 
-    // If the value has already been guessed exit function
+    // If the value has already been guessed
     if (checkGuessedVals(guessed, val)) {
-      // because the user guessed wrong, subtract from guesses
       guesses -= 1;
       console.log(guesses);
-      displayMessage("Pick a different letter!");
-      // if (guesses = 0) {
-      //   // run some func
-      // }
+      // if there is no current error message
+      if (!document.getElementById("message")) {
+        // display the error message
+        displayMessage("Pick a different letter!");
+        return;
+      }
+      // else an error message exists and we exit
       return;
     }
 
     clearMessages();
 
-    console.log("guess count", guesses);
     // If the value entered is in the word
     // show the letter
     letters.forEach(letter => checkLetter(letter, val));
@@ -132,7 +129,7 @@
   function displayMessage(msg) {
     const message = document.createElement("div");
 
-    message.classList.add("message");
+    message.setAttribute("id", "message");
     message.style.color = "red";
     message.style.fontSize = "32px";
     message.textContent = msg;
@@ -141,8 +138,27 @@
   }
 
   function clearMessages() {
-    const messages = document.querySelectorAll(".message");
-    messages.forEach(msg => hangmanContainer.removeChild(msg));
+    const message = document.getElementById("message");
+    if (!message) return;
+    message.parentNode.removeChild(message);
+  }
+
+  function gameOver() {
+    if (guesses === 0) {
+      clearMessages();
+      displayMessage("Game Over! You are out of guesses!");
+      return;
+    }
+  }
+
+  function compose(fn1, fn2) {
+    return function(...args) {
+      return fn1(fn2(...args));
+    };
+  }
+
+  function composedData(...fns) {
+    return fns.reduce(compose);
   }
 
   playButton.addEventListener("click", randomWord);
