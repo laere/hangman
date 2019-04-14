@@ -6,24 +6,58 @@ html {
 
 body {
   margin: 0;
-}
-
-div {
-  margin: 20px 0;
+  font-family: "Gloria Hallelujah";
 }
 
 button {
-  border: none;
-  padding: 10px 30px;
+  font-family: "Gloria Hallelujah";
+  background-color: #ff7417;
+  display: block;
+
+  color: white;
   font-size: 24px;
+  border-radius: 10px;
+  padding: 5px 50px;
+  border: 1px solid white;
+}
+
+button:hover {
+  cursor: pointer;
+  background-color: white;
+  border-color: white;
+  color: #ff7417;
+}
+
+#input {
+  border: none;
+  text-align: center;
+  font-size: 16px;
+  border-bottom: 1px solid #ff7417;
+  padding: 20px 30px;
+}
+
+#play {
+  margin: 0 auto;
+}
+
+#guess {
+  margin-top: 20px;
 }
 
 #container {
   display: none;
+  min-height: 100vh;
+  justify-content: center;
+  align-items: center;
 }
 
-#container div {
-  margin: 20px 0;
+#hangman-container {
+  display: flex;
+  flex-flow: column;
+  justify-content: space-around;
+  align-items: center;
+  height: 500px;
+  width: 60%;
 }
 
 #modal {
@@ -36,16 +70,41 @@ button {
   align-items: center;
 }
 
-#modal-inner {
-  text-align: center;
-}
-
 #title {
   font-size: 48px;
+  color: white;
   margin-bottom: 70px;
+}
+
+#word {
+  display: flex;
+  flex-flow: row;
+  justify-content: space-around;
+  width: 50%;
+  text-transform: capitalize;
+  /* background-color: red; */
+}
+
+#guessed-letters {
+  text-transform: capitalize;
+}
+
+.letter-container {
+  /* display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center; */
 }
 
 .letters {
   visibility: hidden;
-  margin-right: 20px;
+  text-align: center;
+  font-size: 32px;
+}
+
+.letter-border {
+  display: block;
+  background-color: #111;
+  height: 1px;
+  width: 20px;
 }

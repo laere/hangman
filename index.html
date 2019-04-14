@@ -3,18 +3,23 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Gloria+Hallelujah"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="style.css" />
     <title>Hangman</title>
   </head>
   <body>
     <div id="container">
-      <div>
-        <input type="text" id="input" /> <button id="guess">Guess</button>
-        <!-- <button id="play">Play</button> -->
-        <!-- <button id="play-again">Play Again</button> -->
-
+      <div id="hangman-container">
         <div id="word"></div>
-        <div id="guessed-letters"></div>
+        <input type="text" id="input" placeholder="Your guess" />
+        <button id="guess">Guess</button>
+        <div>
+          <h3>Guessed letters:</h3>
+          <div id="guessed-letters"></div>
+        </div>
       </div>
     </div>
     <div id="modal">

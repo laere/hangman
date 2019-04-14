@@ -25,7 +25,7 @@
     hideModal();
 
     const word = "horror".split("");
-    word.forEach(letter => createSpans(letter));
+    word.forEach(letter => createLetters(letter));
     return word;
   }
 
@@ -33,17 +33,27 @@
     const container = document.getElementById("container");
     const modal = document.getElementById("modal");
     modal.style.display = "none";
-    container.style.display = "block";
+    container.style.display = "flex";
   }
 
-  function createSpans(letter) {
+  function createLetters(letter) {
     // Create spans that contain the letter of the
     // randomly generated word.
-    const span = document.createElement("span");
-    span.classList.add("letters");
-    span.textContent = letter;
+    const div = document.createElement("div");
+    const spanLetter = document.createElement("span");
+    const spanLine = document.createElement("span");
 
-    wordContainer.appendChild(span);
+    div.classList.add("letter-container");
+
+    spanLetter.classList.add("letters");
+    spanLetter.textContent = letter;
+
+    spanLine.classList.add("letter-border");
+
+    div.appendChild(spanLetter);
+    div.appendChild(spanLine);
+
+    wordContainer.appendChild(div);
   }
 
   function guessLetter() {
@@ -103,7 +113,7 @@
   function displayGuessedLetters() {
     const guessedLetters = document.getElementById("guessed-letters");
 
-    guessedLetters.textContent = `Guessed letters: ${guessed}`;
+    guessedLetters.textContent = guessed;
   }
 
   function clearWord() {
